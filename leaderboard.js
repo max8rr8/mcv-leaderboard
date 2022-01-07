@@ -9,7 +9,7 @@ export default function createLeaderboard(teamTasks, individualTasks, name) {
         <div style={{ textAlign: 'center' }}>
           <h1>Leaderboard командного этапа {name}</h1>
         </div>
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
           <table>
             <thead>
               <tr>
