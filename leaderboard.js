@@ -1,9 +1,11 @@
 let range = (n) => [...Array(n).keys()]
 
-export default function createLeaderboard(teamTasks, individualTasks, name) {
+export default function createLeaderboard(teamTasks, individualTasks, name, coefs=[]) {
   let isOnlyOneTasks = teamTasks.length == 0 || individualTasks.length == 0
-
+  
   function Component({ data }) {
+    // data = data.map((k, i)=>(k * coefs[i]) ? coefs[i] : k)
+    console.log(data)
     return (
       <>
         <div style={{ textAlign: 'center' }}>
@@ -39,7 +41,7 @@ export default function createLeaderboard(teamTasks, individualTasks, name) {
                   {!isOnlyOneTasks && <td>{e.teamTasks.toFixed(3)}</td>}
                   {!isOnlyOneTasks && <td>{e.individualTasks.toFixed(3)}</td>}
                   {e.tasks.map((e, i) => (
-                    <td key={i}>{e}</td>
+                    <td key={i}>{e.toFixed(3)}</td>
                   ))}
                   <td
                     style={{
@@ -121,6 +123,7 @@ export default function createLeaderboard(teamTasks, individualTasks, name) {
     }
     let pp = 0;
     teams.forEach((e) => {
+      e.tasks = e.tasks.map((e, i) => e * coefs[i])
       e.total = e.tasks.reduce((a, b) => a + b, 0)
       e.teamTasks = e.tasks
         .slice(individualTasks.length)
